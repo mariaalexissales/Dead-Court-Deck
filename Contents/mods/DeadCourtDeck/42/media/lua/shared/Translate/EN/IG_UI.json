@@ -1,0 +1,29 @@
+{
+  "IGUI_DCD_SetName": "%1 %2 %3",
+
+  "IGUI_DCD_Suit_Hearts": "Hearts",
+  "IGUI_DCD_Suit_Diamonds": "Diamonds",
+  "IGUI_DCD_Suit_Clubs": "Clubs",
+  "IGUI_DCD_Suit_Spades": "Spades",
+
+  "IGUI_DCD_Rank_A": "Ace",
+  "IGUI_DCD_Rank_J": "Jack",
+  "IGUI_DCD_Rank_Q": "Queen",
+  "IGUI_DCD_Rank_K": "King",
+
+  "IGUI_DCD_Race_Human": "Human",
+  "IGUI_DCD_Race_Goblin": "Goblin",
+  "IGUI_DCD_Race_Elf": "Elf",
+  "IGUI_DCD_Race_Dwarf": "Dwarf",
+
+  "IGUI_DCD_Tier_Standard": "Standard",
+  "IGUI_DCD_Tier_Bronze": "Bronze",
+  "IGUI_DCD_Tier_Silver": "Silver",
+  "IGUI_DCD_Tier_Gold": "Gold",
+
+  "IGUI_DCD_OpenedPacks": "Opened %1 packs: %2 cards",
+  "IGUI_DCD_MoreRare": "+%1 more rare pulls",
+  "IGUI_DCD_Traded": "Traded in %1",
+  "IGUI_DCD_NoRewards": "The %1 court has nothing to give yet",
+  "IGUI_DCD_Refused_Incomplete": "That suit isn't complete anymore"
+}

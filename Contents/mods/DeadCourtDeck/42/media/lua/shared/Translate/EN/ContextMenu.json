@@ -1,0 +1,13 @@
+{
+  "ContextMenu_DCD_OpenPack": "Open Card Pack",
+  "ContextMenu_DCD_OpenPacks": "Open %1 Card Packs",
+  "ContextMenu_DCD_OpenAllPacks": "Open All Card Packs (%1)",
+  "ContextMenu_DCD_NotCarried": "Pick it up first.",
+
+  "ContextMenu_DCD_TradeIn": "Trade In Full Suit",
+  "ContextMenu_DCD_TradeCopies": "%1 (x%2)",
+  "ContextMenu_DCD_TradeTooltip": "Hands over 13 cards for the %1 court's reward, at %2 rarity.",
+  "ContextMenu_DCD_NoSet": "Needs all 13 cards of one suit, one tier, with court cards of one race.",
+  "ContextMenu_DCD_Closest": "Closest: %1",
+  "ContextMenu_DCD_Missing": "Missing %1: %2"
+}

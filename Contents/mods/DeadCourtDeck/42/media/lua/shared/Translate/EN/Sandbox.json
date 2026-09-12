@@ -1,0 +1,36 @@
+{
+  "Sandbox_DeadCourtDeck": "Dead Court Deck",
+
+  "Sandbox_DCD_CourtChance": "Court Card Chance (%)",
+  "Sandbox_DCD_CourtChance_tooltip": "Chance for each card in a pack to be a court card (Jack, Queen or King, which carry a race) instead of an Ace or a 2-10. Every card in a pack rolls on its own.",
+
+  "Sandbox_DCD_StandardWeight": "Standard Weight",
+  "Sandbox_DCD_StandardWeight_tooltip": "Relative weight for a card rolling Standard, the common suit-coloured print. Weights are compared against each other, so 70 / 20 / 8 / 2 means 70% Standard, 20% Bronze, 8% Silver, 2% Gold.",
+
+  "Sandbox_DCD_BronzeWeight": "Bronze Weight",
+  "Sandbox_DCD_BronzeWeight_tooltip": "Relative weight for a card rolling Bronze.",
+
+  "Sandbox_DCD_SilverWeight": "Silver Weight",
+  "Sandbox_DCD_SilverWeight_tooltip": "Relative weight for a card rolling Silver.",
+
+  "Sandbox_DCD_GoldWeight": "Gold Weight",
+  "Sandbox_DCD_GoldWeight_tooltip": "Relative weight for a card rolling Gold.",
+
+  "Sandbox_DCD_RaceWeightHuman": "Human Court Weight",
+  "Sandbox_DCD_RaceWeightHuman_tooltip": "Relative weight for a court card being Human. The four race weights are compared against each other.",
+
+  "Sandbox_DCD_RaceWeightGoblin": "Goblin Court Weight",
+  "Sandbox_DCD_RaceWeightGoblin_tooltip": "Relative weight for a court card being Goblin.",
+
+  "Sandbox_DCD_RaceWeightElf": "Elf Court Weight",
+  "Sandbox_DCD_RaceWeightElf_tooltip": "Relative weight for a court card being Elf.",
+
+  "Sandbox_DCD_RaceWeightDwarf": "Dwarf Court Weight",
+  "Sandbox_DCD_RaceWeightDwarf_tooltip": "Relative weight for a court card being Dwarf.",
+
+  "Sandbox_DCD_PackLootWeight": "Pack Loot Multiplier",
+  "Sandbox_DCD_PackLootWeight_tooltip": "Multiplies how often card packs spawn in dressers, desks, toy and hobby shops. 0 turns world spawns off.",
+
+  "Sandbox_DCD_ZombieDropChance": "Zombie Pack Drop Chance (%)",
+  "Sandbox_DCD_ZombieDropChance_tooltip": "Chance for a killed zombie to carry a card pack. 0 turns zombie drops off."
+}

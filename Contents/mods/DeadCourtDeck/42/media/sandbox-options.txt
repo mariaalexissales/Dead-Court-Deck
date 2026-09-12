@@ -1,0 +1,71 @@
+/*----------*/
+/*--ESTRAL--*/
+/*----------*/
+
+VERSION = 1,
+
+option DeadCourtDeck.CourtChance
+{
+    type = double, min = 0.0, max = 100.0, default = 10.0,
+    page = DeadCourtDeck, translation = DCD_CourtChance,
+}
+
+option DeadCourtDeck.StandardWeight
+{
+    type = double, min = 0.0, max = 1000.0, default = 70.0,
+    page = DeadCourtDeck, translation = DCD_StandardWeight,
+}
+
+option DeadCourtDeck.BronzeWeight
+{
+    type = double, min = 0.0, max = 1000.0, default = 20.0,
+    page = DeadCourtDeck, translation = DCD_BronzeWeight,
+}
+
+option DeadCourtDeck.SilverWeight
+{
+    type = double, min = 0.0, max = 1000.0, default = 8.0,
+    page = DeadCourtDeck, translation = DCD_SilverWeight,
+}
+
+option DeadCourtDeck.GoldWeight
+{
+    type = double, min = 0.0, max = 1000.0, default = 2.0,
+    page = DeadCourtDeck, translation = DCD_GoldWeight,
+}
+
+option DeadCourtDeck.RaceWeightHuman
+{
+    type = double, min = 0.0, max = 1000.0, default = 25.0,
+    page = DeadCourtDeck, translation = DCD_RaceWeightHuman,
+}
+
+option DeadCourtDeck.RaceWeightGoblin
+{
+    type = double, min = 0.0, max = 1000.0, default = 25.0,
+    page = DeadCourtDeck, translation = DCD_RaceWeightGoblin,
+}
+
+option DeadCourtDeck.RaceWeightElf
+{
+    type = double, min = 0.0, max = 1000.0, default = 25.0,
+    page = DeadCourtDeck, translation = DCD_RaceWeightElf,
+}
+
+option DeadCourtDeck.RaceWeightDwarf
+{
+    type = double, min = 0.0, max = 1000.0, default = 25.0,
+    page = DeadCourtDeck, translation = DCD_RaceWeightDwarf,
+}
+
+option DeadCourtDeck.PackLootWeight
+{
+    type = double, min = 0.0, max = 10.0, default = 1.0,
+    page = DeadCourtDeck, translation = DCD_PackLootWeight,
+}
+
+option DeadCourtDeck.ZombieDropChance
+{
+    type = double, min = 0.0, max = 100.0, default = 1.0,
+    page = DeadCourtDeck, translation = DCD_ZombieDropChance,
+}
