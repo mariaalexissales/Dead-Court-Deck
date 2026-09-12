@@ -1,0 +1,38 @@
+{
+  "_readme": "Dummy rewards for testing - replace them with your own. Trading in a full suit pays the items listed under that set's race, each count multiplied by the set's tier (rounded down, at least 1). Keys starting with _ are ignored. This file is also written to Zomboid/Lua/DeadCourtDeck/rewards.json on first run, and that copy wins.",
+  "_example": { "item": "Base.Axe", "count": 1 },
+
+  "rarityMultiplier": {
+    "Standard": 1,
+    "Bronze": 2,
+    "Silver": 3,
+    "Gold": 5
+  },
+
+  "races": {
+    "Human": {
+      "items": [
+        { "item": "Base.MetalPipe", "count": 2 }
+      ]
+    },
+
+    "Goblin": {
+      "items": [
+        { "item": "Base.Money", "count": 5 }
+      ]
+    },
+
+    "Elf": {
+      "items": [
+        { "item": "Base.BookForaging2", "count": 1 }
+      ]
+    },
+
+    "Dwarf": {
+      "items": [
+        { "item": "Base.HandAxeForged", "count": 1 },
+        { "item": "Base.MetalBar", "count": 2 }
+      ]
+    }
+  }
+}
