@@ -50,12 +50,14 @@ sync without re-skinning.
 
 ## Build
 
-Two PowerShell scripts, no dependencies beyond `System.Drawing`. Run them in
-this order — the second one reports art the first one failed to produce.
+Two PowerShell scripts, no dependencies beyond `System.Drawing`. They live in
+[estral-tools](https://github.com/mariaalexissales/estral-tools), cloned next to
+this folder, and read the mod out of the working directory — so run them from
+here, in this order. The second one reports art the first one failed to produce.
 
 ```bash
-powershell -ExecutionPolicy Bypass -File tools/build_icons.ps1
-powershell -ExecutionPolicy Bypass -File tools/gen_cards.ps1
+powershell -ExecutionPolicy Bypass -File ../estral-tools/dead-court-deck/build_icons.ps1
+powershell -ExecutionPolicy Bypass -File ../estral-tools/dead-court-deck/gen_cards.ps1
 ```
 
 `build_icons.ps1` crops every source card at a fixed `(99, 35) 314x442`, fits it
@@ -87,7 +89,6 @@ Contents/mods/DeadCourtDeck/42/media/
   lua/server/DCD_ZombieDrops.lua           corpse drops
   lua/client/DCD_ContextMenu.lua           right-click menus
   lua/client/DCD_ClientState.lua           halo feedback
-tools/                                     build scripts, not uploaded
 ```
 
 ## Rewards
