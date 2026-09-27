@@ -105,9 +105,11 @@ local function DCD_readOverride()
     return nil
 end
 
+-- fileExists resolves against the game's media folders, not Zomboid/Lua, so it never sees these
+-- files. opening one through the same resolver the read and write use is the reliable check.
 local function DCD_exists(path)
-    local ok, found = pcall(function() return fileExists(path) end)
-    return ok and found == true
+    local ok, reader = pcall(function() return getFileReader(path, false) end)
+    return ok and DCD_drain(reader) ~= nil
 end
 
 -- the write is read back rather than trusted: a missing subfolder fails quietly.
