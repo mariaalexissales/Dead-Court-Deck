@@ -171,7 +171,7 @@ Card art is **TTRPG Legacy [Cards]** by
 [Ddant1100](https://ddant1100.itch.io). See the note at the top.
 
 Code by Estral. [Ko-fi](https://ko-fi.com/estralexe) ·
-[Twitch](https://www.twitch.tv/itsestral)
+[Twitch](https://www.twitch.tv/estralexe)
 
 ## More from Estral
 
@@ -180,3 +180,4 @@ Code by Estral. [Ko-fi](https://ko-fi.com/estralexe) ·
 - **[Player Leaderboard System](https://steamcommunity.com/sharedfiles/filedetails/?id=3795596462)**: have your players fight for first place, or keep track of your best lives in solo ([source](https://github.com/mariaalexissales/Leaderboard-Framework))
 - **[Remove Vanilla Anything](https://steamcommunity.com/sharedfiles/filedetails/?id=3799346338)**: for those who are tired of seeing vanilla items in their heavily modded servers
 - **[Bundle Up! - A Packing Mod](https://steamcommunity.com/sharedfiles/filedetails/?id=3746632343)**: to organize all of your excessive stuff ([source](https://github.com/mariaalexissales/Bundle-Up))
+- **[LAPLACE//DAEMON](https://steamcommunity.com/sharedfiles/filedetails/?id=3809376465)**: every blade you forge rolls a rarity, and a fortune ([source](https://github.com/mariaalexissales/LAPLACE-DAEMON))
