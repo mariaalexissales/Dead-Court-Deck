@@ -1,6 +1,8 @@
 version=1
 id=3800241753
 title=Dead Court Deck
+description=[img]https://i.imgur.com/lja52Fs.gif[/img]
+description=
 description=[h1]Dead Court Deck[/h1]
 description=[h2]Rip packs, chase the court, cash in the suit[/h2]
 description=[b]A collectible card set for Build 42. Find packs out in Knox Country, open them, and trade a completed suit in for loot you decide on.[/b]
