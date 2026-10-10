@@ -50,26 +50,54 @@ sync without re-skinning.
 
 ## Build
 
-Two PowerShell scripts, no dependencies beyond `System.Drawing`. They live in
-[estral-tools](https://github.com/mariaalexissales/estral-tools), cloned next to
-this folder, and read the mod out of the working directory — so run them from
-here, in this order. The second one reports art the first one failed to produce.
+The generator and the checks are not in this repo. They live in estral-tools, a
+private repo cloned next to this folder, one folder per mod. They read the mod
+out of the working directory, so run them from here.
 
 ```bash
-powershell -ExecutionPolicy Bypass -File ../estral-tools/dead-court-deck/build_icons.ps1
-powershell -ExecutionPolicy Bypass -File ../estral-tools/dead-court-deck/gen_cards.ps1
+python ../estral-tools/dead-court-deck/build_cards.py
 ```
 
-`build_icons.ps1` crops every source card at a fixed `(99, 35) 314x442`, fits it
-to 64x64 and centres it on a transparent square. Pass `-Source` if the art pack
-lives somewhere other than `~/Downloads/ttrpg_legacy_cards_1.1`. Twelve source
-files are misspelled upstream (`ace_of_space`, `human_queen_club_of`); an alias
-map catches those, and a token-set index catches any others.
+`build_cards.py` writes `DCD_items.txt` and `ItemName.json` from the suit, rank,
+race and finish lists in `DCD_Core.lua`, the same ones the Lua builds its card
+table from, so there is no second copy to keep in step. It prints
+`all icons present` when 353 items have 353 icons.
 
-`gen_cards.ps1` writes `DCD_items.txt` and `ItemName.json` from the same suit,
-rank, race and finish lists that `DCD_Core.lua` loops over. **Change a list in
-one, change it in the other**, or the Lua card table and the item scripts drift
-apart. It prints `all icons present` when 353 items have 353 icons.
+`--icons` bakes the art first. It crops every source card at a fixed
+`(99, 35) 314x442`, fits it to 64x64 and centres it on a transparent square.
+That needs Pillow (`pip install Pillow`) and the art pack, which is in no repo;
+pass `--source` if it lives somewhere other than
+`~/Downloads/ttrpg_legacy_cards_1.1`. Twelve source files are misspelled
+upstream (`ace_of_space`, `human_queen_club_of`); an alias map catches those,
+and a token-set index catches any others.
+
+## Checks
+
+`.github/workflows/check.yml` runs these on every push to `main` and every PR:
+
+```bash
+python ../estral-tools/dead-court-deck/build_cards.py --check
+python ../estral-tools/dead-court-deck/check_translations.py
+python ../estral-tools/dead-court-deck/check_scripts.py
+python ../estral-tools/dead-court-deck/check_lua.py
+python ../estral-tools/dead-court-deck/check_runtime.py
+python ../estral-tools/dead-court-deck/check_line_endings.py
+python ../estral-tools/workshop/check_length.py
+```
+
+| Check | Why |
+| --- | --- |
+| Generated files are current | A list changed in `DCD_Core.lua` without a re-run leaves the Lua card table naming items no script declares. |
+| Every string is one the game can run | A translation is a Java format string, sandbox names and tooltips included. A bare `%` logs an error on every fetch, and a missing key renders as the raw key. |
+| Every icon is there and has its item | An item whose icon file is missing has no picture, and an icon with no item still ships. |
+| Lua parses | A syntax error only shows up once the game loads the file. |
+| Lua only calls what the game has | The game runs Kahlua, which has no `next()`, `io` or `load`. A call to one is a call on nil the first time it is reached. |
+| Nothing that ships is CRLF | `.gitattributes` checks the mod out LF for the multiplayer checksum, but the Workshop upload comes from the working copy. |
+| The Workshop page fits | Steam refuses an upload whose description reaches 8,000 bytes. |
+
+All stdlib except `check_lua.py`, which needs `luaparser`. CI checks estral-tools
+out with a read-only deploy key, kept in the `ESTRAL_TOOLS_KEY` secret. PR titles
+have to start with `fix:`, `feat:`, `chore:`, `refactor:` or `docs:`.
 
 ## Layout
 
