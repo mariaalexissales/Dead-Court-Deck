@@ -17,8 +17,7 @@ local function DCD_clientHandler()
     return DCD_ClientState and DCD_ClientState.onCommand
 end
 
--- with no remote server the send is a direct call into the handler that would have
--- received it, so singleplayer runs the same open and trade code the server does.
+-- with no remote server this calls the handler directly, so singleplayer runs the server's code.
 function DCD_Net.toServer(player, command, args)
     player = player or getPlayer()
     args = args or {}

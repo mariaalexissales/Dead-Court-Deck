@@ -28,8 +28,7 @@ local function DCD_flatten(items)
     return out
 end
 
--- the server only looks in the player's own inventory, so a pack or card in a crate or on
--- the floor would be offered and then silently refused.
+-- the server only looks in the player's own inventory: anything else would be silently refused.
 local function DCD_isCarried(player, item)
     local ok, carried = pcall(function() return player:getInventory():containsRecursive(item) end)
     return ok and carried
@@ -54,8 +53,6 @@ local function DCD_tooltip(description)
     tooltip.description = description
     return tooltip
 end
-
--- ---------------------------------------------------------------------------------------
 
 local function DCD_packOptions(player, context, selected)
     local carried, loose = {}, nil
@@ -102,7 +99,6 @@ local function DCD_packOptions(player, context, selected)
     end
 end
 
--- "Ace, 7, Queen" for the tooltip. the set name above it already says suit, race and tier.
 local function DCD_missingList(missing)
     local names = {}
     for _, fullType in ipairs(missing) do
@@ -131,8 +127,7 @@ local function DCD_cardOptions(player, context, selected)
 
     local held = DCD.scan(player:getInventory())
 
-    -- only the sets this card is part of. offering a Standard suit off a right-clicked Bronze
-    -- card reads as trading the wrong cards away.
+    -- only this card's sets: a Standard suit offered off a Bronze card reads as the wrong trade.
     local sets = {}
     for _, set in ipairs(DCD.completeSets(held)) do
         if DCD_setContains(set, info) then sets[#sets + 1] = set end

@@ -7,8 +7,7 @@ require "Items/ProceduralDistributions"
 local ProceduralDistributions_list = ProceduralDistributions.list
 local table_insert = table.insert
 
--- the places vanilla already drops a deck of cards, plus a few a kid or an office would keep
--- a pack in. weights sit near vanilla CardDeck in the same tables.
+-- weights sit near vanilla CardDeck's in the same tables.
 local TABLES = {
     BedroomDresser        = 1,
     BedroomSidetable      = 1,
