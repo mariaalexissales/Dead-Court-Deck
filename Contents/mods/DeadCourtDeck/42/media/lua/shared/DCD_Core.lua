@@ -13,7 +13,8 @@ DCD.PACK_SIZE = 5
 -- under Zomboid/Lua/, not the mod folder: Steam overwrites that on every workshop update.
 DCD.DIR = "DeadCourtDeck"
 
--- these lists and tools/gen_cards.ps1 describe the same 352 cards. change one, change both.
+-- build_cards.py in estral-tools reads these lists out of this file to write the items and
+-- their names, so each stays a plain table of strings.
 DCD.SUITS = { "Hearts", "Diamonds", "Clubs", "Spades" }
 DCD.RANKS = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" }
 -- the art has no race version of the Ace, so it sits with the plain ranks and only the
