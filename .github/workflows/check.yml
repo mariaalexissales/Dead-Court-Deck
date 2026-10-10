@@ -1,0 +1,87 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generated-files:
+    name: generated files are current
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # the generator lives in estral-tools, which is private, so this needs the
+      # read-only deploy key. it lands beside the mod rather than in it, and the
+      # scripts read the mod out of the working directory, not their own location.
+      - uses: actions/checkout@v4
+        with:
+          repository: mariaalexissales/estral-tools
+          ssh-key: ${{ secrets.ESTRAL_TOOLS_KEY }}
+          path: estral-tools
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # --check needs neither the art pack nor pillow, so there is nothing to install.
+      # it exits 1 and names the stale files, or the items with no icon.
+      - name: items and names match the lists in DCD_Core.lua
+        run: python estral-tools/dead-court-deck/build_cards.py --check
+
+  mod-files:
+    name: mod files are valid
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/checkout@v4
+        with:
+          repository: mariaalexissales/estral-tools
+          ssh-key: ${{ secrets.ESTRAL_TOOLS_KEY }}
+          path: estral-tools
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # a translation is a java format string, so a bare % logs an error on every
+      # fetch, and a missing name renders as its raw key. neither crashes.
+      - name: every string is a format the game can run, and nothing is unnamed
+        run: python estral-tools/dead-court-deck/check_translations.py
+
+      - name: every icon is there and has its item
+        run: python estral-tools/dead-court-deck/check_scripts.py
+
+      # a lua syntax error only shows up once the game loads the file.
+      - name: lua files parse
+        run: |
+          pip install --quiet luaparser==4.2.0
+          python estral-tools/dead-court-deck/check_lua.py
+
+      # the game runs kahlua, which has no next(), io or load. a call to one
+      # parses and lints clean, then is a call on nil the first time it's reached.
+      - name: lua only calls what the game's lua has
+        run: python estral-tools/dead-court-deck/check_runtime.py
+
+      - name: nothing that ships is crlf
+        run: python estral-tools/dead-court-deck/check_line_endings.py
+
+      # steam refuses an upload whose description reaches 8,000 bytes, and the
+      # game's id lines count.
+      - name: workshop page fits steam's limit
+        run: python estral-tools/workshop/check_length.py
