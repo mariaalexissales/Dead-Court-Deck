@@ -22,8 +22,7 @@ local function DCD_pickUniform(list)
     return list[ZombRand(#list) + 1]
 end
 
--- weights come off the sandbox, so all-zero is a real input. it falls back to uniform rather
--- than handing out nothing.
+-- weights come off the sandbox, so all-zero is a real input: it falls back to uniform.
 local function DCD_pickWeighted(list, weights)
     local total = 0
     for i = 1, #list do total = total + math.max(0, weights[i] or 0) end
@@ -56,7 +55,6 @@ local function DCD_tierWeights()
     }
 end
 
--- each card rolls on its own, so a pack can hold several courts or none. duplicates allowed.
 function DCD_Packs.rollCard()
     local suit = DCD_pickUniform(DCD.SUITS)
     local tier = DCD_pickWeighted(DCD.TIERS, DCD_tierWeights())

@@ -7,7 +7,7 @@ require "DCD_Core"
 DCD = DCD or {}
 DCD_ClientState = DCD_ClientState or {}
 
--- a single pack always shows every card. past this, open all only calls out the rare pulls.
+-- past this many cards, open all only calls out the rare pulls.
 local MAX_LINES = 8
 
 local function DCD_player(args)
@@ -37,7 +37,6 @@ local function DCD_showCard(player, fullType)
     local info = DCD.cards[fullType]
     local color = info and DCD.cardColor(info.suit, info.tier)
     local name = getItemNameFromFullType(fullType) or fullType
-    -- a court pull gets a marker on top of its tier colour, so it reads from across the screen.
     if info and info.race then name = "* " .. name .. " *" end
     DCD_halo(player, name, color)
 end

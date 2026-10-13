@@ -1,0 +1,23 @@
+name: pr title
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions: {}
+
+jobs:
+  title:
+    name: pr title names the change
+    runs-on: ubuntu-latest
+    steps:
+      # the title goes in through env: expanded straight into the script, a
+      # crafted title would run as shell.
+      - env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if printf '%s' "$TITLE" | grep -Eq '^(fix|feat|chore|refactor|docs): '; then
+            exit 0
+          fi
+          echo "::error::start the title with fix:, feat:, chore:, refactor: or docs:"
+          exit 1

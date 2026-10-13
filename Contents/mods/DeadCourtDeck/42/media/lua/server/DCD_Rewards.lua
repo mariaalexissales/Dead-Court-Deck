@@ -10,8 +10,7 @@ if not DCD.isAuthority() then return end
 DCD = DCD or {}
 DCD_Rewards = DCD_Rewards or {}
 
--- the admin's copy wins over the one shipped in the mod, and survives workshop updates. it is
--- written on first run, so there is always a file to edit.
+-- the admin's copy: it wins over the shipped one and survives workshop updates.
 local OVERRIDE = DCD.DIR .. "/rewards.json"
 
 -- getFileWriter is not documented to create a missing subfolder, so this sits beside it in
@@ -106,7 +105,7 @@ local function DCD_readOverride()
 end
 
 -- fileExists resolves against the game's media folders, not Zomboid/Lua, so it never sees these
--- files. opening one through the same resolver the read and write use is the reliable check.
+-- files. opening one is the check.
 local function DCD_exists(path)
     local ok, reader = pcall(function() return getFileReader(path, false) end)
     return ok and DCD_drain(reader) ~= nil
@@ -243,8 +242,7 @@ local function DCD_normalise(decoded, source)
     return out, warnings
 end
 
--- quiet is for the reload a trade-in does: the file was already reported at startup, and
--- a warning per trade would bury the log.
+-- quiet is for the reload a trade-in does: a warning per trade would bury the log.
 function DCD_Rewards.load(quiet)
     local text, path = DCD_readOverride()
     local source = path and ("Zomboid/Lua/" .. path) or nil

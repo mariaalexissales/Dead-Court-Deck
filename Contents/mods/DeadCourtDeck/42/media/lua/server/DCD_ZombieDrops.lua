@@ -7,8 +7,7 @@ require "DCD_Packs"
 
 if not DCD.isAuthority() then return end
 
--- the zombie's inventory becomes the corpse's, so a pack added here is found by searching
--- the body like any other loot.
+-- the zombie's inventory becomes the corpse's.
 local function DCD_onZombieDead(zombie)
     if not zombie then return end
 

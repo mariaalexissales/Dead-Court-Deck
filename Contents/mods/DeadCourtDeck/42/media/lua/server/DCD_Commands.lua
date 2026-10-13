@@ -17,7 +17,7 @@ local MAX_PACKS_PER_COMMAND = 100
 local OPEN_COOLDOWN_MS = 250
 local TRADE_COOLDOWN_MS = 1000
 
--- runtime only. a rate limit has no business surviving a restart or sitting in the save.
+-- runtime only: a rate limit doesn't belong in the save.
 local lastOpen = {}
 local lastTrade = {}
 

@@ -13,11 +13,11 @@ DCD.PACK_SIZE = 5
 -- under Zomboid/Lua/, not the mod folder: Steam overwrites that on every workshop update.
 DCD.DIR = "DeadCourtDeck"
 
--- these lists and tools/gen_cards.ps1 describe the same 352 cards. change one, change both.
+-- build_cards.py in estral-tools reads these lists out of this file to write the items and
+-- their names, so each stays a plain table of strings.
 DCD.SUITS = { "Hearts", "Diamonds", "Clubs", "Spades" }
 DCD.RANKS = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" }
--- the art has no race version of the Ace, so it sits with the plain ranks and only the
--- Jack, Queen and King carry a race.
+-- the art has no race version of the Ace, so it is a plain rank.
 DCD.PLAIN_RANKS = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10" }
 DCD.COURT_RANKS = { "J", "Q", "K" }
 DCD.RACES = { "Human", "Goblin", "Elf", "Dwarf" }
@@ -31,8 +31,7 @@ DCD.TIER_COLORS = {
     Gold   = { 255, 215, 0 },
 }
 
--- the common tier is printed in its suit's colour. clubs are black on the card, which would
--- be unreadable as halo text, so they read as a light grey instead.
+-- clubs are black on the card, which is unreadable as halo text, so they get a light grey.
 DCD.SUIT_COLORS = {
     Hearts   = { 220, 60, 60 },
     Spades   = { 90, 200, 220 },
@@ -73,8 +72,7 @@ function DCD.warn(message)
     print("[DCD] WARN: " .. tostring(message))
 end
 
--- only for the fallback string. the game stores a loaded translation with java's %1$s
--- placeholders, so both spellings are filled here.
+-- for the fallback only. a loaded translation holds java's %1$s, so both spellings are filled.
 local function DCD_fill(text, ...)
     local args = { ... }
 
@@ -87,9 +85,7 @@ local function DCD_fill(text, ...)
     return text
 end
 
--- getText does the substitution itself, and hands back the key when there is no such key.
--- pcall because a translation whose placeholder count does not match the arguments throws
--- out of java rather than returning anything.
+-- getText hands back the key when there is none. pcall: a format java rejects can throw.
 function DCD.text(key, fallback, ...)
     local ok, value = pcall(getText, key, ...)
     if ok and value and value ~= "" and value ~= key then return value end
@@ -104,10 +100,6 @@ function DCD.sandbox(name, default)
     if value == nil then return default end
     return value
 end
-
--- ---------------------------------------------------------------------------------------
--- card table
--- ---------------------------------------------------------------------------------------
 
 function DCD.cardType(suit, rank, race, tier)
     if DCD.IS_COURT[rank] then
@@ -174,17 +166,12 @@ function DCD.suitName(suit)
     return DCD.text("IGUI_DCD_Suit_" .. suit, suit)
 end
 
--- "Gold Goblin Hearts"
 function DCD.setName(suit, race, tier)
     return DCD.text("IGUI_DCD_SetName", "%1 %2 %3", DCD.tierName(tier), DCD.raceName(race), DCD.suitName(suit))
 end
 
--- ---------------------------------------------------------------------------------------
--- inventory scan. the client menu and the server check both call these, so the menu can
--- only offer what the server will accept.
--- ---------------------------------------------------------------------------------------
-
--- fullType -> list of card items, carried bags included.
+-- the client menu and the server check both scan with these, so the menu only offers what the
+-- server accepts. fullType -> list of card items, carried bags included.
 function DCD.scan(inventory)
     local held = {}
     if not inventory then return held end
@@ -207,7 +194,6 @@ function DCD.scan(inventory)
     return held
 end
 
--- how many full copies of this set the scan holds. 0 means incomplete.
 function DCD.copiesOf(held, suit, race, tier)
     local members = DCD.sets[DCD.setKey(suit, race, tier)]
     if not members then return 0 end
@@ -233,9 +219,8 @@ function DCD.missing(held, suit, race, tier)
     return out
 end
 
--- every complete set held, in suit / race / tier order so the menu does not reshuffle.
--- a raceless card counts toward every race's set, so two sets can share a 7 of Hearts. copies is
--- per set; trading one set in can drop another set's count.
+-- suit / race / tier order, so the menu does not reshuffle. a raceless card counts toward every
+-- race's set, so copies is per set: trading one in can drop another's count.
 function DCD.completeSets(held)
     local out = {}
 
@@ -253,8 +238,7 @@ function DCD.completeSets(held)
     return out
 end
 
--- the set a clicked card is closest to finishing. a court card only belongs to its own race's
--- set; a raceless card is weighed against all four and the fewest-missing race wins.
+-- a court card only belongs to its own race's set; a raceless one is weighed against all four.
 function DCD.closestSet(held, info)
     if not info then return nil end
 

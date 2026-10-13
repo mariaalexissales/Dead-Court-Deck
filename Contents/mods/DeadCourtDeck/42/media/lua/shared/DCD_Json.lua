@@ -2,9 +2,7 @@
 --ESTRAL--
 ----------
 
--- project zomboid ships no lua json parser. strict about structure, forgiving about the
--- three things a hand-written file always has wrong: a notepad bom, // comments, and a
--- trailing comma.
+-- strict about structure, forgiving about a notepad bom, // comments and a trailing comma.
 
 DCD = DCD or {}
 DCD_Json = DCD_Json or {}
@@ -28,11 +26,10 @@ local function DCD_utf8(code)
     return "?"
 end
 
--- a character scan, not a gsub: a naive comment strip eats the slashes in any url in a
--- description, and a naive comma strip eats commas in prose. only the in-string state
--- tells code from content.
+-- a character scan, not a gsub: only the in-string state tells a // in a url or a comma in
+-- prose from code.
 local function DCD_prepass(text)
-    -- notepad writes a bom and the parser would choke on it as a stray character.
+    -- notepad's bom.
     if text:sub(1, 3) == "\239\187\191" then text = text:sub(4) end
 
     local out, i, n = {}, 1, #text
@@ -67,7 +64,6 @@ local function DCD_prepass(text)
             for _ in text:sub(i, stop + 1):gmatch("\n") do out[#out + 1] = "\n" end
             i = stop + 2
         elseif c == "," then
-            -- a comma is trailing when the next meaningful character closes the container.
             local nextAt = text:find("[^%s]", i + 1)
             local nextChar = nextAt and text:sub(nextAt, nextAt) or nil
             if nextChar == "}" or nextChar == "]" then
